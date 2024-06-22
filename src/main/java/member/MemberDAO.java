@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class MemberDAO {
 	
@@ -135,7 +136,7 @@ public class MemberDAO {
 	public void deleteMember(String id) {
 		try {
 			Connection connection = getConnection();
-			String sql = "delete from member where id=?";
+			String sql = "delete from members where id=?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
@@ -144,5 +145,32 @@ public class MemberDAO {
 		}
 	}
 	
+	public ArrayList<MemberDTO> getMemberList(){
+		ArrayList<MemberDTO> memberList = new ArrayList<MemberDTO>();
+		try {
+			Connection connection = getConnection();
+			String sql = "select * from members";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				//한 회원의 정보를 저장할 용기 memberDTO 객체 생성
+				MemberDTO memberDTO = new MemberDTO();
+				System.out.println("memberDTO 주소 : " + memberDTO);
+				//memberDTO 멤버변수에 열에 접근해서 가져온 데이터를 저장
+				memberDTO.setId(rs.getString("id"));
+				memberDTO.setPw(rs.getString("pw"));
+				memberDTO.setName(rs.getString("name"));
+				memberDTO.setDate(rs.getTimestamp("date"));
+				//배열 한 칸에 저장
+				memberList.add(memberDTO);
+			}
+			System.out.println("memberList 주소 : " + memberList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return memberList;
+	}
 	
 }

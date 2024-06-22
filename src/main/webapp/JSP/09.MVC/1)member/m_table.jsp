@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>insert</title>
+<title>table</title>
 </head>
 <body>
 <%
@@ -28,13 +28,5 @@ create table members(
 +-------+-------------+------+-----+---------+-------+
 */
 %>
-<h1>회원가입</h1>
-<form action="insertPro.jsp" method="post">
-아이디 : <input type="text" name="id"><br>
-비밀번호 : <input type="password" name="pw"><br>
-이름 : <input type="text" name="name"><br>
-<input type="submit" value="회원가입">
-</form>
-
 </body>
 </html>
