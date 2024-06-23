@@ -19,12 +19,14 @@ BoardDAO boardDAO = new BoardDAO();
 BoardDTO getBoard = boardDAO.getBoard(num);
 %>
 <form action="updatePro.jsp" method="post">
+<input type="hidden" name="num" value="<%=num %>"><!-- updatePro에 값을 함께 넘겨줌 -->
 <table border="1">
 <tr><td>작성자</td><td><input type="text" name="name" value="<%=getBoard.getName() %>" readonly></td></tr>
 <tr><td>제목</td><td><input type="text" name="subject" value="<%=getBoard.getSubject()%>"></td></tr>
 <tr><td>내용</td><td><textarea name="content" rows="10" cols="20"><%=getBoard.getContent()%></textarea></td></tr>
 <tr><td colspan="2"><input type="submit" value="글수정"></td></tr>
 </table>
+글번호 : <%=num %>
 </form>
 
 </body>

@@ -10,6 +10,9 @@ import com.mysql.cj.protocol.Resultset;
 
 public class BoardDAO {
 //게시판 데이터베이스 작업
+	Connection connection = null;
+	ResultSet rs = null;
+	PreparedStatement pstmt = null;
 	
 	public Connection getConnection() {
 		Connection connection = null;
@@ -29,10 +32,10 @@ public class BoardDAO {
 	public BoardDTO insertBoard(BoardDTO boardDTO) {
 		System.out.println("BoardDAO insertBoard()");
 		try {
-			Connection connection = getConnection();
+			connection = getConnection();
 			
 			String sql = "insert into board(name,subject,content,num,readCount,date) values(?,?,?,?,?,?)";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, boardDTO.getName());
 			pstmt.setString(2, boardDTO.getSubject());
 			pstmt.setString(3, boardDTO.getContent());
@@ -51,12 +54,12 @@ public class BoardDAO {
 		System.out.println("BoardDAO getMaxNum()");
 		int num = 0;
 		try {
-			Connection connection = getConnection();
+			connection = getConnection();
 			
 			String sql = "select max(num) from board";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				num = rs.getInt("max(num)");
@@ -72,12 +75,12 @@ public class BoardDAO {
 		ArrayList<BoardDTO> boardList = new ArrayList<BoardDTO>();
 		
 		try {
-			Connection connection = getConnection();
+			connection = getConnection();
 			
 			String sql = "select * from board";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				BoardDTO boardDTO = new BoardDTO();
@@ -102,13 +105,13 @@ public class BoardDAO {
 		BoardDTO boardDTO = new BoardDTO();
 		
 		try {
-			Connection connection = getConnection();
+			connection = getConnection();
 			
 			String sql = "select * from board where num=?";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				boardDTO.setNum(rs.getInt("num"));
@@ -127,16 +130,50 @@ public class BoardDAO {
 	public void updateReadCount(int num) {
 		System.out.println("BoardDAO updateReadCount()");
 		try {
-			Connection connection = getConnection();
+			connection = getConnection();
 			
 			String sql = "update board set readCount = readCount+1 where num=?";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}//
+	
+	public void updateBoard(BoardDTO boardDTO) {
+		System.out.println("BoardDAO updateBoard()");
+		try {
+			connection = getConnection();
+			
+			String sql = "update board set content = ?, subject=? where num=?";
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, boardDTO.getContent());
+			pstmt.setString(2, boardDTO.getSubject());
+			pstmt.setInt(3, boardDTO.getNum());
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}//
+	
+	public void deleteBoard(BoardDTO boardDTO) {
+		System.out.println("BoardDAO deleteBoard()");
+		try {
+			connection = getConnection();
+
+			String sql = "delete from board where num=?";
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, boardDTO.getNum());
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}//
+	
+	
 
 }

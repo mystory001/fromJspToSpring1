@@ -28,5 +28,6 @@ for(int i = 0; i<boardList.size();i++){
 	<td><%=boardDTO.getDate() %></td></tr>
 <%} %>
 </table>
+<a href="write.jsp">글쓰기</a>
 </body>
 </html>

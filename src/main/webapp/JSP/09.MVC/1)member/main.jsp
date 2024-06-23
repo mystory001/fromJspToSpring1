@@ -28,6 +28,8 @@ String formattedTime = dateFormat.format(lastAccessTime);
 <a href="info.jsp">회원정보조회</a><br>
 <a href="update.jsp">회원정보수정</a><br>
 <a href="delete.jsp">회원정보삭제</a><br>
+<hr>
+<a href="../2)board/write.jsp">글쓰기</a><br>
 
 <%
 if(!(id==null) && id.equals("admin")){%>

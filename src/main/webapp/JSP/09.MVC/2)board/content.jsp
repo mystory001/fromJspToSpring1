@@ -40,7 +40,7 @@ if(id!=null){
 	if(id.equals("admin")||id.equals(boardDTO.getName())){
 %>
 		<a href="update.jsp?num=<%=boardDTO.getNum() %>">글수정 </a>
-		<a href="delete.jsp?num=<%=boardDTO.getNum() %>">글수정 </a>
+		<a href="delete.jsp?num=<%=boardDTO.getNum() %>">글삭제 </a>
 <%		
 	}
 }

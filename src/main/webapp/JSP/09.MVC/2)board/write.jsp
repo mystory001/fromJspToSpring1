@@ -1,3 +1,5 @@
+<%@page import="java.io.IOException"%>
+<%@page import="java.io.FileWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,6 +22,25 @@ String id = (String)session.getAttribute("id");
 <tr><td>내용</td><td><textarea rows="20" cols="50"></textarea> </td></tr>
 <tr><td colspan="2"><input type="submit" value="글쓰기"></td></tr>
 </table>
+<a href="list.jsp">글목록</a>
 </form>
+<%
+/*
+	for(int i = 1; i<=100; i++){
+		String subject = "제목 " + i;
+		String content = "제목 " + i + "의 내용 " + i +"번째";
+		
+		try{
+			String fileName = "auto_post_" + i + ".txt";
+			FileWriter writer = new FileWriter(fileName);
+			writer.write("제목 " + subject + "\n");
+			writer.write("내용 " + content + "\n");
+			writer.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+*/
+%>
 </body>
 </html>
