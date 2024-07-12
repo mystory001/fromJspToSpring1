@@ -29,7 +29,7 @@ public class BoardDAO {
 		return connection;
 	}//
 	
-	public BoardDTO insertBoard(BoardDTO boardDTO) {
+	public void insertBoard(BoardDTO boardDTO) {
 		System.out.println("BoardDAO insertBoard()");
 		try {
 			connection = getConnection();
@@ -47,7 +47,6 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return boardDTO;
 	}//
 	
 	public int getMaxNum() {
